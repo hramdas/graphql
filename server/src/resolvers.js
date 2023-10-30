@@ -1,4 +1,4 @@
-const { getCustomers, getCustomersCount } = require("./services/customers");
+const { getCustomers, getCustomersCount, findOneCostomer } = require("./services/customers");
 
 const books = [
   {
@@ -22,10 +22,14 @@ const resolvers = {
       const customers = await getCustomers(limit, offset)
       return customers
     },
-    // customer: async () => {
-    //   const customer = await getCustomers(limit, offset)
-    //   return customer
-    // },
+    customerCount: async () => {
+      const count = await getCustomersCount()
+      return {count}
+    },
+    customer: async (_, { id }) => {
+      const customer = await findOneCostomer(id)
+      return customer
+    },
   },
 };
 

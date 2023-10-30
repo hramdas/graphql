@@ -13,8 +13,8 @@ const getLastCustomerID = () => {
 const findCostomer = (email, contact) => {
   return CustomersSchema.findOne({ $or: [{ email }, { contact }] }).select({ customerId: 1, _id: 1 })
 }
-const findOneCostomer = (id) => {
-  return CustomersSchema.findOne({ _id: id })
+const findOneCostomer = (customerId) => {
+  return CustomersSchema.findOne({ customerId })
 }
 
 const findDuplicateCostomerForUpdate = (email, contact, id) => {

@@ -1,6 +1,7 @@
 const express = require('express');
 const { ApolloServer } = require('@apollo/server')
 const { expressMiddleware } = require('@apollo/server/express4')
+const cors = require('cors')
 const bodyParser = require('body-parser');
 const resolvers = require('./src/resolvers');
 const typeDefs = require('./src/schema');
@@ -10,6 +11,7 @@ require("dotenv").config()
 const app = express();
 const port = process.env.PORT
 app.use(bodyParser.json())
+app.use(cors())
 
 const server = new ApolloServer({
   typeDefs,
