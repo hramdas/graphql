@@ -6,7 +6,9 @@ import Pagination from './Pagination';
 
 const tableHeadCells = ["ID", "Name", "Email", "Contact", "Status", "Date added", "", ""]
 
-export default function CustomersList({customers, customersCount, limit, page, handlePage, handleConfirmDeleteModal, handleEditCustomerModal}) {
+export default function CustomersList({ customers, customersCount, limit, page, handlePage, handleConfirmDeleteModal, handleEditCustomerModal }) {
+  
+  console.log('customersCount', customersCount)
   return (
     <TableContainer component={Paper}>
       <>

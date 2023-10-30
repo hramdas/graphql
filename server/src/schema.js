@@ -1,9 +1,4 @@
 const typeDefs = `
-  type Book {
-    id:ID
-    title: String
-    author: String
-  }
   type Customer {
     customerId:ID!
     name: String!
@@ -15,17 +10,14 @@ const typeDefs = `
     count: Int
   }
 
-
   type Query {
-    books: [Book]!
-    book : Book
     customers(limit:Int=10, offset:Int=0): [Customer]!
     customerCount: Count
     customer(id:Int) : Customer
   }
 
-  type Mutation{
-    addCustomer(customer:AddCustomerInput): Customer
+  type Mutation {
+    addCustomer(customer: AddCustomerInput): Customer
   }
 
   enum StatusType {

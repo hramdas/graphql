@@ -1,23 +1,8 @@
+const { addCustomer: addCustomerController } = require("./controllers/customers");
 const { getCustomers, getCustomersCount, findOneCostomer } = require("./services/customers");
-
-const books = [
-  {
-    id: 1,
-    title: 'The Awakening',
-    author: 'Kate Chopin',
-  },
-  {
-    id: 2,
-    title: 'City of Glass',
-    author: 'Paul Auster',
-  },
-];
-
 
 const resolvers = {
   Query: {
-    books: () => books,
-    book: () => books[0],
     customers: async (_, { limit = 10, offset = 0 }) => {
       const customers = await getCustomers(limit, offset)
       return customers
@@ -31,6 +16,12 @@ const resolvers = {
       return customer
     },
   },
+  Mutation: {
+    addCustomer: async (_, { name, email, contact, status }) => {
+      const res = await addCustomerController(name, email, contact, status)
+      return res
+    }
+  }
 };
 
 module.exports = resolvers;

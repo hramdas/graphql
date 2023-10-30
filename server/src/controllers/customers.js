@@ -1,25 +1,19 @@
 const { createCustomer, getLastCustomerID, updateCustomer: updateCustomerService, findCostomer, findDuplicateCostomerForUpdate, findOneCostomer, getCustomers: getCustomersService, getCustomersCount, deleteCustomer: deleteCustomerService } = require('../services/customers')
 
-const addCustomer = async (req, res) => {
-  try {
-    const { name, email, contact, status } = req.body
+const addCustomer = async (name, email, contact, status) => {
 
-    const duplicateCustomer = await findCostomer(email, contact)
-    if (duplicateCustomer) {
-      return res.status(400).send({ message: 'Duplicate email or contact number.' })
-    }
-
-    const lastCustomer = await getLastCustomerID()
-    const customerId = lastCustomer ? lastCustomer.customerId + 1 : 1
-
-    const { _id } = await createCustomer(customerId, name, email, contact, status)
-
-    return res.status(200).send({ message: 'Successfully created customer.', id: _id })
-
-  } catch (error) {
-    console.log("ERROR", error)
-    return res.status(500).send({ message: 'Error while add customer' })
+  const duplicateCustomer = await findCostomer(email, contact)
+  if (duplicateCustomer) {
+    throw { message: 'Duplicate email or contact number.' }
   }
+
+  const lastCustomer = await getLastCustomerID()
+  const customerId = lastCustomer ? lastCustomer.customerId + 1 : 1
+
+  const { _id } = await createCustomer(customerId, name, email, contact, status)
+
+  return { message: 'Successfully created customer.', id: _id }
+
 }
 
 const updateCustomer = async (req, res) => {

@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const getCustomersWithCount = gql(
+export const getCustomersWithCountQuery = gql(
   `query getCustomers($limit: Int=10, $offset : Int=0) {
     customers(limit:$limit, offset:$offset) {
       id:customerId
